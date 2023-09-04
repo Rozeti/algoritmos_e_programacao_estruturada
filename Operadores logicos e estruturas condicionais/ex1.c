@@ -3,18 +3,17 @@
 
 main(){
 
-    int num, quadrado, raiz;
+    float num, resultado;
 
     printf("Digite um numero: ");
-    scanf("%d", &num);
+    scanf("%f", &num);
 
-    if (num >= 0 && num % 2 == 0)
-    {
-        raiz = sqrt(num);
-        printf("A raiz quadrada do numero que voce digitou e: %d", raiz);
+    if (num >= 0){
+        resultado = sqrt(num);
+        printf("A raiz do numero que voce digitou eh: %.3f", resultado);
     }
     else{
-        quadrado = num * num;
-        printf("O quadrado do numero que voce digitou e: %d", quadrado);
-    } 
+        resultado = pow(num, 2);
+        printf("O quadrado do numero que voce digitou eh: %.3f", resultado);
+    }
 }

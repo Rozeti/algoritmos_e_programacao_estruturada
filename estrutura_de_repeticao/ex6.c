@@ -23,7 +23,7 @@ main(){
             valor = 1 * quantidade;
             break;
         case 3:
-            valor = 3 * quantidade;
+            valor = 4 * quantidade;
             break;
         default:
             break;
@@ -31,8 +31,8 @@ main(){
 
     conta += valor;
 
-    printf("-->O valor atual do seu pedido he: R$ %d", conta);
-    printf("\nDeseja continuar pedindo? 1 - Sim ou 0 - Nao: ");
+    printf("-->O valor atual do seu pedido eh: R$ %d", conta);
+    printf("\nDeseja continuar pedindo? (1 - Sim ou 0 - Nao): ");
     scanf("%d", &opcao);
 
     } while (opcao == 1);   

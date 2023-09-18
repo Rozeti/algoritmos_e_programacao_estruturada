@@ -1,15 +1,13 @@
 #include<stdio.h>
 
 main(){
-    int num, contador1, contador2;
+    int num, contador = 1;
 
-    printf("Digite qualquer numero: ");
+    printf("Digite um numero qualquer: ");
     scanf("%d", &num);
 
-    contador1 = contador2 = num;
-
-    while (num % 2 == 0){
-        printf("\n-> Impares: %d", contador1);
-        contador1 -= 3; 
-    }
+    while (contador <= num){
+        printf("\n- %d", contador);
+        contador += 2;
+    }  
 }

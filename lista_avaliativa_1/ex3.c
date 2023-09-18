@@ -12,10 +12,10 @@ main(){
     scanf("%f", &ladoC);
 
     if (ladoA + ladoB > ladoC && ladoA + ladoC > ladoB && ladoB + ladoC > ladoA){
-        if (ladoA != ladoB && ladoA != ladoC && ladoB != ladoA && ladoB != ladoC && ladoC != ladoA && ladoC != ladoB){
+        if (ladoA != ladoB && ladoA != ladoC && ladoB != ladoC){
             printf("\n-> Os valores informados podem formar sim um triangulo! Sendo esse um Triangulo Escaleno!");
         }
-        if ((ladoA == ladoB && ladoA != ladoC) || (ladoB == ladoC && ladoA != ladoB) || (ladoB == ladoA && ladoB != ladoC) || (ladoB == ladoC && ladoB != ladoA) || (ladoC == ladoA && ladoC != ladoB) || (ladoC == ladoB && ladoC != ladoA)){
+        if ((ladoA == ladoB && ladoA != ladoC) || (ladoA == ladoC && ladoA != ladoB) || (ladoB == ladoC && ladoB != ladoA)){
             printf("\n-> Os valores informados podem formar sim um triangulo! Sendo esse um Triangulo Isosceles!");
         }
         if (ladoA == ladoB && ladoA == ladoC){

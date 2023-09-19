@@ -1,32 +1,40 @@
 #include<stdio.h>
 
 main(){
-    int sexo, olho, cabelo, idade = 0, contador = 0, porcentagem, etapa = 1;
+
+    char sexo, olho, cabelo;
+    int idade = 0, contador = 0, porcentagem = 0, etapa = 1;
     float salario;
 
     printf("--> PARA FINALIZAR A PESQUISA FORNECA COMO IDADE DE UM HABITANTE FICTICIO O VALOR -1 <--");
-    do
-    {
+    do{
+        fflush(stdin);
         printf("\n\n<---------------------CADASTRO %d----------------------->", etapa);
-        printf("\na) Informe o sexo 1- para masculino ou 2- para feminino: ");
-        scanf("%d", &sexo);
-        while (sexo != 1 && sexo != 2){
-            printf("#Valor invalido! Por favor digite 1- para masculino ou 2- para feminino: ");
-            scanf("%d", &sexo);
+        printf("\na) Informe o sexo m- para masculino ou f- para feminino: ");
+        scanf("%c", &sexo);
+        fflush(stdin);
+        while (sexo != 'm' && sexo != 'f'){
+            printf("#Valor invalido! Por favor digite m- para masculino ou f- para feminino: ");
+            scanf("%c", &sexo);
+            fflush(stdin);
         }
         
-        printf("b) Informe a cor dos olhor 1- azuis / 2- verdes / 3- castanhos / 4- pretos: ");
-        scanf("%d", &olho);
-        while (olho != 1 && olho != 2 && olho != 3 && olho != 4){
-            printf("#Valor invalido! Por favor digite 1- azuis / 2- verdes / 3- castanhos / 4- pretos: ");
-            scanf("%d", &olho);
+        printf("b) Informe a cor dos olhor a- azuis / v- verdes / c- castanhos / p- pretos: ");
+        scanf("%c", &olho);
+        fflush(stdin);
+        while (olho != 'a' && olho != 'v' && olho != 'c' && olho != 'p'){
+            printf("#Valor invalido! Por favor digite a- azuis / v- verdes / c- castanhos / p- pretos: ");
+            scanf("%c", &olho);
+            fflush(stdin);
         }
 
-        printf("c) Informe a cor dos cabelos 1- loiros / 2- castanhos / 3- pretos / 4- ruivos: ");
-        scanf("%d", &cabelo);
-        while (cabelo != 1 && cabelo != 2 && cabelo != 3 && cabelo != 4){
-            printf("#Valor invalido! Por favor digite 1- loiros / 2- castanhos / 3- pretos / 4- ruivos: ");
-            scanf("%d", &cabelo);
+        printf("c) Informe a cor dos cabelos l- loiros / c- castanhos / p- pretos / r- ruivos: ");
+        scanf("%c", &cabelo);
+        fflush(stdin);
+        while (cabelo != 'l' && cabelo != 'c' && cabelo != 'p' && cabelo != 'r'){
+            printf("#Valor invalido! Por favor digite l- loiros / c- castanhos / p- pretos / r- ruivos: ");
+            scanf("%c", &cabelo);
+            fflush(stdin);
         }
 
         printf("d) Informe a idade da pessoa em anos, entre 10 a 100 anos: ");
@@ -45,11 +53,13 @@ main(){
         etapa ++;
         contador ++;
 
-        if (sexo == 2 && olho == 3 && cabelo == 2 && (idade >= 18 || idade <= 35)){
+        if (sexo == 'f' && olho == 'c' && cabelo == 'c' && idade >= 18 && idade <= 35){
             porcentagem ++;
         }
     } while (idade >= 0);
-
+    
     porcentagem = (porcentagem * 100) / (contador - 1);
-    printf("A porcentagem de pessoas do sexo feminino, com idade entre 18 e 35 anos e que tenham olhos castanhos e cabelos castanhos que participaram da pesquisa eh: %d%%", porcentagem);
+    contador --;
+    printf("\n-> A quantidade de pessoas que participaram da pesquisa eh igual a: %d", contador);
+    printf("\n-> Sendo a porcentagem de pessoas do sexo feminino, com idade entre 18 e 35 anos e que tenham olhos castanhos e cabelos castanhos que participaram da pesquisa eh: %d%%", porcentagem);
 }

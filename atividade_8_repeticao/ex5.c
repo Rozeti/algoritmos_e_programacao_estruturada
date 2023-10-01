@@ -96,6 +96,4 @@ int main() {
     for (int i = 0; i < 5; i++) {
         printf("Votos para %s: %d\n", jogadoras[i], votos[i]);
     }
-
-    return 0;
 }

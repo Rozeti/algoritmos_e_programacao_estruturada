@@ -1,7 +1,7 @@
 #include<stdio.h>
 
 float temperatura(float temp){
-    float celsius = (temp - 32) * (5 / 9);
+    float celsius = (temp - 32.f) * (5.f / 9.f);
     return celsius;
 }
 

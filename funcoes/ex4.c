@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <math.h>
 
-float calc_raio(int altura, int raio) {
-    return (float) 3.14 * pow(raio, 2) * altura;
+float calc_raio(double altura, double raio) {
+    double PI = 3.1415;
+    double volume = PI * pow(raio, 2) * altura;
+    return volume;
 }
 
 int main() {
-    printf("%.2f", calc_raio(10, 2));
-    return 0;
+    double altura = 2, raio = 1;
+    double volume = calc_raio(altura, raio);
+    printf("Volume do cilindro: %lf", volume);
 }

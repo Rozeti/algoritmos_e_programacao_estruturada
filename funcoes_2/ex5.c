@@ -1,33 +1,19 @@
 #include<stdio.h>
-#include<stdlib.h>
 
-void somarColunas(int matriz[60][10]){
-    for(int j = 0; j < 10; j++){
-        matriz[60][j] = 0;
-    }
-    for(int j = 0; j < 60; j++){
-        for(int i = 0; i < 10; i++){
-        matriz[60][i] += matriz[i][j];
-        }
-    }
+int diasMes(int mes){
+    int diasMes[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
+    return diasMes[mes - 1];
 }
 
 main(){
-    int matriz[61][10];
+    int dia, mes, ano;
+    int diaAtual, mesAtual, anoAtual;
 
-    for (int i = 0; i < 60; i++){
-        for (int j = 0; j < 10; j++){
-            matriz[i][j] = i * 10 + j;
-        }
-        printf("\n");
-    }   
+    printf("-> Informe a sua data de nascimento: ");
+    scanf("%d, %d, %d", &dia, &mes, &ano);
 
-    somarColunas(matriz);
+    printf("\n");
 
-    for (int i = 0; i < 61; i++){
-        for (int j = 0; j < 10; j++){
-            printf("%d\t", matriz[i][j]);
-        }
-        printf("\n");
-    }
+    printf("-> Informe a data atual: ");
+    scanf("%d, %d, %d", &diaAtual, &mesAtual, &anoAtual);
 }

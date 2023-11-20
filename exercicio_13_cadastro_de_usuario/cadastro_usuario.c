@@ -56,8 +56,7 @@ void buscarUsuario(Usuario u[], int totalCadastrados, int menuOpcao){
     char busca[30];
     int contador = 0;
     
-    if (totalCadastrados == 0)
-    {
+    if (totalCadastrados == 0){
         printf("\n\nOpa, nao tem nenhum registro na lista ainda!!");
         return;
     }else{
@@ -79,9 +78,6 @@ void buscarUsuario(Usuario u[], int totalCadastrados, int menuOpcao){
         }
         if (menuOpcao == 2){
             editarUsuario(u, totalCadastrados, contador);
-            return;
-        }else if (menuOpcao == 3){
-            excluirUsuario(u, totalCadastrados, contador);
             return;
         }
     }
@@ -168,14 +164,47 @@ void editarUsuario(Usuario u[], int totalCadastros, int contador){
     }
 }
 
-void excluirUsuario(Usuario u[], int totalCadastros, int contador){
+int excluirUsuario(Usuario u[], int totalCadastros, int opcao){
+    int contador = 0;
+    char busca[30];
 
-    for (int i = contador; i < totalCadastros; i++){
-        u[i] = u[i + 1];
+    if (totalCadastros == 0){
+        printf("\n\nOpa, nao tem nenhum registro na lista ainda!!");
+        return;
+    }else{
+        printf("\n-> Informe o email a ser buscado: ");
+        fgets(busca, sizeof(busca), stdin);
+        fflush(stdin);
+        for (int i = 0; i < totalCadastros; i++){
+            if (strcmp(busca, u[i].email) == 0){
+                printf("\n\n-----> ENCONTRADO: <-----");
+                printf("\n-> Nome de usuario: %s", u[i].nome);
+                printf("-> ID de usuario: %d", u[i].id);
+                printf("\n-> Email: %s", u[i].email);
+                printf("-> Sexo: %s", u[i].sexo);
+                printf("-> Endereco: %s", u[i].endereco);
+                printf("-> Altura: %lf", u[i].altura);
+                printf("\n-> Vacinado (1 - sim / 0 - nao): %d", u[i].vacina);
+                contador = i;
+            } 
+        }
     }
-    printf("\n\nItem excluido com sucesso!");
+    printf("\n\n--> Deseja mesmo excluir esse usuario? 1 - Para sim ou 0 - para nao: ");
+    scanf("%d", &opcao);
+    fflush(stdin);
+    if (opcao == 1){
+        for (int i = contador; i < totalCadastros; i++){
+            u[contador] = u[contador + 1];
+            totalCadastros = totalCadastros - 1;
+        }
+        printf("\nItem excluido com sucesso!");
+        return opcao;
+        } else if (opcao == 0){
+            printf("\nA exclusao foi interrompida!");
+            return opcao;
+        }
 }
-    
+ 
 void listarUsuarios(Usuario u[], int totalCadastros){
     if (totalCadastros == 0){
         printf("\n\nAinda nao a nenhum registro para ser listado");
@@ -193,16 +222,9 @@ void listarUsuarios(Usuario u[], int totalCadastros){
     }  
 }
 
-/*
-void gerarID(){
-    int i;
-    srand(time(NULL));
-    i = rand() % 10000;
-}
-*/
 main (){
     Usuario u[TAM];
-    int menuOpcao, totalCadastrados = 0, opcao;
+    int menuOpcao, totalCadastrados = 0, opcao = 0, retornoFunc;
 
     do{
         printf("\n\n-> Digite 1 - Para incluir novo usuario");
@@ -230,15 +252,12 @@ main (){
             break;
         case 3:
             fflush(stdin);
-            printf("\n\n-----> EXCLUIR USUARIO <-----");
-            printf("\n-> Deseja mesmo excluir a conta? 1 - Para sim ou 0 - Para nao: ");
-            scanf("%d", &opcao);
-            if (opcao == 1){
-                buscarUsuario(u, totalCadastrados, menuOpcao);
+            retornoFunc = excluirUsuario(u, totalCadastrados, opcao);
+            if (retornoFunc == 1){
                 totalCadastrados--;
-            } else{
-                printf("\n\n-> Exclusao interrompida!");
-            }
+            }else if (retornoFunc == 0){
+                totalCadastrados = totalCadastrados;
+            } 
             break;
         case 4:
             fflush(stdin);

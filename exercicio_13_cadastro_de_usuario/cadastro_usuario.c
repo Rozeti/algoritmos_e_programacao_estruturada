@@ -13,6 +13,7 @@ typedef struct{
 void cadastroUsuario(Usuario u[], int totalCadastros){
     srand(time(NULL));
     u[totalCadastros].id = rand() % 10000;
+    char sexoValidos[3][30] = {"Masculino", "Feminino", "Indiferente"};
 
     fflush(stdin);
     printf("\n\n-----> CADASTRO DE USUARIO <-----");
@@ -31,10 +32,18 @@ void cadastroUsuario(Usuario u[], int totalCadastros){
         } while (strchr(u[totalCadastros].email, '@') == NULL);
     }
     
-    printf("--> Sexo (Femenino / Masculino / Indiferente): ");
+    printf("--> Sexo (Feminino / Masculino / Indiferente): ");
     fgets(u[totalCadastros].sexo, sizeof(u[totalCadastros].sexo), stdin);
     fflush(stdin);
-
+    if (strcmp(u[totalCadastros].sexo, sexoValidos) == 1){
+        do{
+            printf("\n-->Sexo inválido. Escolha entre 'Masculino', 'Feminino' ou 'Indiferente': ");
+            fgets(u[totalCadastros].sexo, sizeof(u[totalCadastros].sexo), stdin);
+            fflush(stdin);
+        } while (strcmp(u[totalCadastros].sexo, sexoValidos) == 1);
+        printf("\n");
+    }
+    
     printf("--> Endereco: ");
     fgets(u[totalCadastros].endereco, sizeof(u[totalCadastros].endereco), stdin);
     fflush(stdin);
@@ -42,19 +51,31 @@ void cadastroUsuario(Usuario u[], int totalCadastros){
     printf("--> Altura: ");
     scanf("%lf", &u[totalCadastros].altura);
     fflush(stdin);
+    if (u[totalCadastros].altura < 1 || u[totalCadastros].altura > 2){
+        do{
+            printf("--> O valor da altura informado não eh valido. Informe uma altura entre 1m a 2m: ");
+            scanf("%lf", &u[totalCadastros].altura);
+            fflush(stdin);
+        } while (u[totalCadastros].altura < 1 || u[totalCadastros].altura > 2);
+    }
 
     printf("--> Vacinado (1 - para sim ou 0 - para nao): ");
     scanf("%d", &u[totalCadastros].vacina);
     fflush(stdin);
+    if (u[totalCadastros].vacina != 1 && u[totalCadastros].vacina != 0){
+        do{
+            printf("--> O valor informado nao eh valido. Por favor informe 1 - para sim ou 0 - para nao: ");
+            scanf("%d", &u[totalCadastros].vacina);
+            fflush(stdin);
+        } while (u[totalCadastros].vacina != 1 && u[totalCadastros].vacina != 0);
+    }
 
     printf("\n-> Cadastro realizado com sucesso!");
 }
 
-
-
 void buscarUsuario(Usuario u[], int totalCadastrados, int menuOpcao){
     char busca[30];
-    int contador = 0;
+    int contador = 0, saida = 0;
     
     if (totalCadastrados == 0){
         printf("\n\nOpa, nao tem nenhum registro na lista ainda!!");
@@ -63,15 +84,29 @@ void buscarUsuario(Usuario u[], int totalCadastrados, int menuOpcao){
         printf("\n-> Informe o email a ser buscado: ");
         fgets(busca, sizeof(busca), stdin);
         fflush(stdin);
+        if (strchr(busca, '@') == NULL){
+            do{
+                printf("\n-> Email nao encontrado. Tentar novamente? 1 - para sim ou 2 - para nao: ");
+                scanf("%d", &saida);
+                fflush(stdin);
+                if (saida == 1){
+                    printf("\n-> Informe o email a ser buscado: ");
+                    fgets(busca, sizeof(busca), stdin);
+                    fflush(stdin);
+                }else if(saida == 2){
+                    return;
+                }
+            } while (strchr(busca, '@') == NULL && saida == 1);
+        }
         for (int i = 0; i < totalCadastrados; i++){
             if (strcmp(busca, u[i].email) == 0){
                 printf("\n\n-----> ENCONTRADO: <-----");
-                printf("\n-> Nome de usuario: %s", u[i].nome);
+                printf("\n-> Nome de usuario: %s", u[i].nome); 
                 printf("-> ID de usuario: %d", u[i].id);
                 printf("\n-> Email: %s", u[i].email);
                 printf("-> Sexo: %s", u[i].sexo);
                 printf("-> Endereco: %s", u[i].endereco);
-                printf("-> Altura: %lf", u[i].altura);
+                printf("-> Altura: %.2lfm", u[i].altura);
                 printf("\n-> Vacinado (1 - sim / 0 - nao): %d", u[i].vacina);
                 contador = i;
             } 
@@ -81,8 +116,6 @@ void buscarUsuario(Usuario u[], int totalCadastrados, int menuOpcao){
             return;
         }
     }
-    printf("\n\n# Email nao encontrado!");
-    fflush(stdin); 
 }
 
 void editarUsuario(Usuario u[], int totalCadastros, int contador){
@@ -165,7 +198,7 @@ void editarUsuario(Usuario u[], int totalCadastros, int contador){
 }
 
 int excluirUsuario(Usuario u[], int totalCadastros, int opcao){
-    int contador = 0;
+    int contador = 0, saida = 0;
     char busca[30];
 
     if (totalCadastros == 0){
@@ -175,6 +208,20 @@ int excluirUsuario(Usuario u[], int totalCadastros, int opcao){
         printf("\n-> Informe o email a ser buscado: ");
         fgets(busca, sizeof(busca), stdin);
         fflush(stdin);
+        if (strchr(busca, '@') == NULL){
+            do{
+                printf("\n-> Email nao encontrado. Tentar novamente? 1 - para sim ou 2 - para nao: ");
+                scanf("%d", &saida);
+                fflush(stdin);
+                if (saida == 1){
+                    printf("\n-> Informe o email a ser buscado: ");
+                    fgets(busca, sizeof(busca), stdin);
+                    fflush(stdin);
+                }else if(saida == 2){
+                    return;
+                }
+            } while (strchr(busca, '@') == NULL && saida == 1);
+        }
         for (int i = 0; i < totalCadastros; i++){
             if (strcmp(busca, u[i].email) == 0){
                 printf("\n\n-----> ENCONTRADO: <-----");
@@ -183,7 +230,7 @@ int excluirUsuario(Usuario u[], int totalCadastros, int opcao){
                 printf("\n-> Email: %s", u[i].email);
                 printf("-> Sexo: %s", u[i].sexo);
                 printf("-> Endereco: %s", u[i].endereco);
-                printf("-> Altura: %lf", u[i].altura);
+                printf("-> Altura: %.2lfm", u[i].altura);
                 printf("\n-> Vacinado (1 - sim / 0 - nao): %d", u[i].vacina);
                 contador = i;
             } 
@@ -216,7 +263,7 @@ void listarUsuarios(Usuario u[], int totalCadastros){
             printf("\n-> Email: %s", u[i].email);
             printf("-> Sexo: %s", u[i].sexo);
             printf("-> Endereco: %s", u[i].endereco);
-            printf("-> Altura: %lf", u[i].altura);
+            printf("-> Altura: %.2lfm", u[i].altura);
             printf("\n-> Vacinado (1 - sim / 0 - nao): %d\n", u[i].vacina);
         }
     }  
